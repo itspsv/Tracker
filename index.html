@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Task Tracker</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<main>
+  <div class="top">
+    <h1>Daily Task Tracker</h1>
+    <div class="topright">
+      <div class="clock" aria-label="Current date and time">
+        <div class="time" id="clockTime"></div>
+        <div class="date" id="clockDate"></div>
+      </div>
+      <button class="btn theme" id="themeBtn"></button>
+    </div>
+  </div>
+
+  <div class="bar">
+    <div class="tabs" role="tablist">
+      <button id="tabTasks" role="tab">Tasks</button>
+      <button id="tabHabits" role="tab">Habits</button>
+    </div>
+    <div class="nav">
+      <button class="btn" id="prev" aria-label="Previous week">←</button>
+      <span class="range" id="range"></span>
+      <button class="btn" id="next" aria-label="Next week">→</button>
+      <button class="btn" id="today">Today</button>
+    </div>
+  </div>
+
+  <div class="summary">
+    <div class="stat"><div class="label" id="dayStatLabel"></div><div class="value" id="dayPct"></div><div class="sub" id="daySub"></div></div>
+    <div class="stat"><div class="label" id="weekLabel"></div><div class="value" id="weekPct"></div><div class="sub" id="weekSub"></div></div>
+    <div class="stat"><div class="label" id="tile3Label"></div><div class="value" id="tile3Value"></div><div class="sub" id="tile3Sub"></div></div>
+  </div>
+
+  <div class="days" id="days"></div>
+
+  <div class="notice" id="notice" hidden>
+    <span id="noticeText"></span>
+    <button id="noticeBack">Back to today</button>
+  </div>
+
+  <section id="pageTasks" class="card">
+    <div class="dayhead">
+      <h2><span id="dayTitle"></span><span class="badge" id="dayBadge"></span></h2>
+      <span class="meta" id="dayMeta"></span>
+    </div>
+    <div class="progress"><div id="dayBar"></div></div>
+    <form class="add" id="addForm">
+      <input class="title" id="title" type="text" placeholder="Add a task…" maxlength="200" required>
+      <label class="dur"><input id="hours" type="number" min="0" max="24" step="1" placeholder="0" aria-label="Hours"> h</label>
+      <label class="dur"><input id="mins" type="number" min="0" max="59" step="5" placeholder="30" aria-label="Minutes"> m</label>
+      <button class="btn primary" type="submit" id="addBtn">Add</button>
+    </form>
+    <ul class="tasks" id="tasks"></ul>
+  </section>
+
+  <section id="pageHabits" class="card" hidden>
+    <div class="dayhead">
+      <h2><span id="habitTitle"></span><span class="badge" id="habitBadge"></span></h2>
+      <span class="meta" id="habitMeta"></span>
+    </div>
+    <div class="progress"><div id="habitBar"></div></div>
+    <div class="pickhead">Tap to add a habit — scroll for more →</div>
+    <div class="picker" id="picker"></div>
+    <form class="add" id="customForm" hidden>
+      <input class="title" id="customName" type="text" placeholder="Name your habit…" maxlength="80" required>
+      <button class="btn primary" type="submit">Add habit</button>
+      <button class="btn" type="button" id="customCancel">Cancel</button>
+      <div class="emojis" id="emojis" role="radiogroup" aria-label="Icon"></div>
+    </form>
+    <ul class="habits" id="habits"></ul>
+    <div class="remindnote" id="remindNote" hidden>
+      <span id="remindText"></span>
+      <button class="btn" id="remindEnable" hidden>Enable notifications</button>
+    </div>
+  </section>
+
+  <div class="card">
+    <div class="charthead">
+      <h2 id="chartTitle"></h2>
+      <label id="modeWrap">Measure by
+        <select id="mode">
+          <option value="count">Tasks completed</option>
+          <option value="time">Time completed</option>
+        </select>
+      </label>
+    </div>
+    <div class="charts">
+      <div class="bars" id="bars"></div>
+      <div class="donut">
+        <svg viewBox="0 0 120 120" role="img" aria-labelledby="donutLabel">
+          <title id="donutLabel">Weekly completion</title>
+          <circle cx="60" cy="60" r="46" fill="none" stroke="var(--rest)" stroke-width="14"/>
+          <circle id="donutArc" cx="60" cy="60" r="46" fill="none" stroke="var(--done)" stroke-width="14"
+                  stroke-linecap="butt" transform="rotate(-90 60 60)" stroke-dasharray="0 289"/>
+          <text id="donutPct" class="center" x="60" y="62" text-anchor="middle" dominant-baseline="middle"></text>
+          <text class="centersub" id="donutSub" x="60" y="82" text-anchor="middle"></text>
+        </svg>
+        <div class="legend">
+          <span><i style="background:var(--done)"></i><span id="legDone"></span></span>
+          <span><i style="background:var(--rest)"></i><span id="legRest"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card backup">
+    <h2>Backup</h2>
+    <span class="msg" id="backupMsg">Save everything to a file, or restore from one.</span>
+    <button class="btn" id="exportBtn">⬇ Export</button>
+    <button class="btn" id="importBtn">⬆ Import</button>
+    <input type="file" id="importFile" accept="application/json,.json" hidden>
+  </div>
+</main>
+
+<script src="js/app.js"></script>
+</body>
+</html>
